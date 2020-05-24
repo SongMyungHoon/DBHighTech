@@ -1,15 +1,21 @@
 package k26_DBProject3rdExam;
 
 import java.util.*;
+import java.lang.reflect.*;
 
 public class K26_Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NumberFormatException, NoSuchFieldException, SecurityException {
 		K26_Menu menu = new K26_Menu();
 		menu.k26_itemListPrint();
 		menu.k26_itemCompare();
-		
-		menu.itemList.get(Integer.parseInt("0")).;
-		
+		K26_Item item1 = menu.itemList.get(0);
+		Field[] className = item1.getClass().getFields();
+		System.out.println(className.length);
+//		for(int i=0; i < className.length; i++) {
+//			
+//			System.out.println(className[i].getType());
+//		}
+//		System.out.println(className);
 //		List<K26_Item> itemList = new ArrayList<>();
 //		Scanner sc = new Scanner(System.in);
 //		StringBuilder sb = new StringBuilder();

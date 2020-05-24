@@ -1,6 +1,7 @@
 package k26_DBProject3rdExam;
 
 import java.util.*;
+import java.lang.reflect.Field;
 
 public class K26_Menu {
 	static Scanner sc = new Scanner(System.in);
@@ -66,13 +67,8 @@ public class K26_Menu {
 		itemList.get(Integer.parseInt(itemNo)).getClass().getName();
 		String updateQuery = sb.append("update ").append(k26_tblName)
 				.append(" set ")
-				.append(revisedColumn).toString();
-		if(itemList.get(Integer.parseInt(itemNo)).  instanceof String) {
-				sb.append(" = '").append(setVal).append("'")
+				.append(revisedColumn).append(" = '").append(setVal).append("'")
 				.append(" where no = ").append(itemNo).toString();
-		} else if(setVal instanceof Integer) {
-			
-		}
 		sb.setLength(0);
 		k26_dbDAO.k26_executeQuery(updateQuery);
 		String select2Query = "select * from " + k26_tblName;

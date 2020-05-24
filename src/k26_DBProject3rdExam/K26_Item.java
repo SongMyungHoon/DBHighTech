@@ -1,5 +1,7 @@
 package k26_DBProject3rdExam;
 
+import java.lang.reflect.*;
+
 public class K26_Item {
 	private int no = 0;
 	private String name = "";
@@ -20,6 +22,13 @@ public class K26_Item {
 		this.etc = etc;
 		this.price = price;
 	}
+	
+//	public String getFieldType(String fieldName) {
+//		Class<?> itemClass = Class.forName("K26_Item");
+//		Field type = itemClass.getField(fieldName).getType();
+//
+//		return type.;
+//	}
 	public int getNo() {
 		return no;
 	}
