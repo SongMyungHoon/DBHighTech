@@ -71,17 +71,25 @@ public class K26_Item {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+//	@Override
+//	public String toString() {
+//		return stringBuilder.append("no ").append(no)
+//				.append(". name : ").append(name)
+//				.append(", weight : ").append(weight).append(" (g)")
+//				.append(", displaySize : ").append(displaySize).append(" (inch)")
+//				.append(", diskVolume : ").append(diskVolume).append(" (GB)")
+//				.append(", etc : ").append(etc)
+//				.append(", price : ").append(price).append(" (만원)")
+//				.toString();
+//	}
 	@Override
 	public String toString() {
-		return stringBuilder.append("no ").append(no)
-				.append(". name : ").append(name)
-				.append(", weight : ").append(weight).append(" (g)")
-				.append(", displaySize : ").append(displaySize).append(" (inch)")
-				.append(", diskVolume : ").append(diskVolume).append(" (GB)")
-				.append(", etc : ").append(etc)
-				.append(", price : ").append(price).append(" (만원)")
-				.toString();
+		return stringBuilder.append(String.format("|%s.", no))
+				.append(String.format("|%s", name))
+				.append(String.format("|%d", weight))
+				.append(String.format("|%.1f", displaySize))
+				.append(String.format("|%d", diskVolume))
+				.append(String.format("|%s", etc))
+				.append(String.format("|%d|", price)).toString();
 	}
-	
-	
 }

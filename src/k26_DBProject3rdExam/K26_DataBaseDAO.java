@@ -40,73 +40,73 @@ public class K26_DataBaseDAO {
 		
 		// Open a connection
 		try {
-			System.out.println("---- Connecting DB ----");
+//			System.out.println("---- Connecting DB ----");
 			k26_connection = DriverManager.getConnection(k26_DB_URL, k26_ID, k26_PASSWORD);
-			k26_connection.setCatalog(k26_DBName);
+//			k26_connection.setCatalog(k26_DBName);
 		} catch (SQLException k26_Error) {
 			System.out.println("Error] Connection fail: \n" + k26_Error.getMessage());
 			k26_Error.printStackTrace();
 		}
-		System.out.println("---- DB connection complete ----");
+//		System.out.println("---- DB connection complete ----");
 		// connection을 살려서 반환
 		return k26_connection;
 	}
 	
-//	// 데이터베이스가 있는지 확인하고, 없으면 데이터베이스 생성 후 데이터베이스 전환 
-//	public void k26_setDB() {
-//		PreparedStatement k26_preStatement = null;
-//		ResultSet k26_resultSet = null;
-//		try {
-//			String k26_DBSql = "SELECT * FROM Information_schema.SCHEMATA WHERE SCHEMA_NAME = ?";
-//			k26_preStatement = k26_connection.prepareStatement(k26_DBSql);
-//			k26_preStatement.setString(1, k26_DBName);
-//			k26_resultSet = k26_preStatement.executeQuery();
-//			//데이터베이스가 없다면 데이터베이스 생성
-//			if(!k26_resultSet.next()){
-//				Statement k26_statement = k26_connection.createStatement();
-//				System.out.println("database not found");
-//				System.out.println("create new database " + k26_DBName);
-//				String k26_dbSql = "create database if not exists " + k26_DBName;
-//				
-//				/* statement.execute(sql)
-//				 * return true if the first result is a ResultSet object 
-//			     * return false if it is an update count or there are no results 
-//			     * create database는 row의 count를 반환하므로  return true인 경우
-//			     * DB 생성 실패 */ 
-//				if(k26_statement.execute(k26_dbSql)) {
-//					System.out.println("데이터베이스 생성 실패");
-//				}
-//				k26_statement.close();
-//			} 
-//			//데이터베이스를 변환 (use database)
-//			k26_connection.setCatalog(k26_DBName);
-//		} catch (Exception k26_Error) {
-//			System.out.println("CreateOrChangeDatabase error : " + k26_Error);
-//		} finally {
-//			try{
-//				if(k26_resultSet != null) {
-//					k26_resultSet.close();
-//				}
-//				if(k26_preStatement != null) {
-//					k26_preStatement.close();
-//				}
-//				if(k26_connection != null) {
-//					k26_preStatement.close();
-//				}
-//			} catch (Exception k26_Error) {
-//				System.out.println("Close error : " + k26_Error);
-//				k26_Error.printStackTrace();
-//			}
-//		}
-//	}
+	// 데이터베이스가 있는지 확인하고, 없으면 데이터베이스 생성 후 데이터베이스 전환 
+	public void k26_setDB() {
+		PreparedStatement k26_preStatement = null;
+		ResultSet k26_resultSet = null;
+		try {
+			String k26_DBSql = "SELECT * FROM Information_schema.SCHEMATA WHERE SCHEMA_NAME = ?";
+			k26_preStatement = k26_connection.prepareStatement(k26_DBSql);
+			k26_preStatement.setString(1, k26_DBName);
+			k26_resultSet = k26_preStatement.executeQuery();
+			//데이터베이스가 없다면 데이터베이스 생성
+			if(!k26_resultSet.next()){
+				Statement k26_statement = k26_connection.createStatement();
+				System.out.println("database not found");
+				System.out.println("create new database " + k26_DBName);
+				String k26_dbSql = "create database if not exists " + k26_DBName;
+				
+				/* statement.execute(sql)
+				 * return true if the first result is a ResultSet object 
+			     * return false if it is an update count or there are no results 
+			     * create database는 row의 count를 반환하므로  return true인 경우
+			     * DB 생성 실패 */ 
+				if(k26_statement.execute(k26_dbSql)) {
+					System.out.println("데이터베이스 생성 실패");
+				}
+				k26_statement.close();
+			} 
+			//데이터베이스를 변환 (use database)
+			k26_connection.setCatalog(k26_DBName);
+		} catch (Exception k26_Error) {
+			System.out.println("CreateOrChangeDatabase error : " + k26_Error);
+		} finally {
+			try{
+				if(k26_resultSet != null) {
+					k26_resultSet.close();
+				}
+				if(k26_preStatement != null) {
+					k26_preStatement.close();
+				}
+				if(k26_connection != null) {
+					k26_preStatement.close();
+				}
+			} catch (Exception k26_Error) {
+				System.out.println("Close error : " + k26_Error);
+				k26_Error.printStackTrace();
+			}
+		}
+	}
 	
 	public void k26_executeQuery(String k26_query) {
 		Statement k26_statement = null;
 		try {
-			System.out.println("Query: " + k26_query);
+//			System.out.println("Query: " + k26_query);
 			k26_statement = k26_connection.createStatement();
-			if(k26_statement.executeUpdate(k26_query) >= 0) {
-				System.out.println("----   Query O.K.   ----");
+			if(k26_statement != null && k26_statement.executeUpdate(k26_query) >= 0) {
+//				System.out.println("----   Query O.K.   ----");
 			} else {
 				System.out.println("Error] Execute fail");
 			}
@@ -132,9 +132,9 @@ public class K26_DataBaseDAO {
 		ResultSetMetaData k26_rsmd = null;
 		try {
 			k26_statement = k26_connection.createStatement();
-			System.out.println("Query: " + k26_query);
+//			System.out.println("Query: " + k26_query);
 			if((k26_resultSet = k26_statement.executeQuery(k26_query)) != null) {
-				System.out.println("----   Query O.K.   ----");
+//				System.out.println("----   Query O.K.   ----");
 				k26_rsmd = (ResultSetMetaData) k26_resultSet.getMetaData();
 			}
 			while (k26_resultSet != null && k26_resultSet.next()) {

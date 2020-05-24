@@ -5,12 +5,15 @@ import java.lang.reflect.*;
 
 public class K26_Main {
 	public static void main(String[] args) throws NumberFormatException, NoSuchFieldException, SecurityException {
-		K26_Menu menu = new K26_Menu();
-		menu.k26_itemListPrint();
-		menu.k26_itemCompare();
-		K26_Item item1 = menu.itemList.get(0);
-		Field[] className = item1.getClass().getFields();
-		System.out.println(className.length);
+//		K26_Menu menu = new K26_Menu();
+		boolean execute = true;
+		while(execute) {
+			K26_Menu.k26_initialMenu();
+		}
+//		menu.k26_itemListPrint();
+//		K26_Item item1 = menu.itemList.get(0);
+//		Field[] className = item1.getClass().getFields();
+//		System.out.println(className.length);
 //		for(int i=0; i < className.length; i++) {
 //			
 //			System.out.println(className[i].getType());
@@ -24,6 +27,8 @@ public class K26_Main {
 //		K26_DataBaseDAO k26_dbDAO = new K26_DataBaseDAO();
 //		k26_dbDAO.k26_setDBName(k26_dbName);
 //		k26_dbDAO.k26_connectDB();
+//		k26_dbDAO.k26_setDB();
+
 //		String createTableQuery 
 //				= sb.append("create table if not exists item_tbl(")
 //				.append("no int primary key auto_increment")
@@ -41,7 +46,7 @@ public class K26_Main {
 //		= sb.append("insert into item_tbl ")
 //		    .append("(name, weight, display_size, disk_volume, etc, price) ")
 //		    .append("values ")
-//		    .append("('LG Gram', 980, 14.4, 512, ' ', 140)").toString();
+//		    .append("('LG Gram 14', 980, 14.4, 512, ' ', 140)").toString();
 //		sb.setLength(0);
 //		k26_dbDAO.k26_executeQuery(insertQuery);
 //		String selectQuery = "select * from " + k26_tblName;
@@ -61,10 +66,6 @@ public class K26_Main {
 //		String select2Query = "select * from " + k26_tblName;
 //		itemList = k26_dbDAO.k26_itemDataLoadQuery(select2Query);
 //		itemList.stream().forEach(System.out::println);
-//		boolean execute = true;
-//		while(execute) {
-//			K26_Menu.k26_initialMenu();		
-//		}
 	}
 }
 
