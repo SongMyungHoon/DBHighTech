@@ -8,7 +8,6 @@ public class K26_DataBaseDAO {
 	private static final String k26_PASSWORD = "qortjf90";
 	
 	private static Connection k26_connection = null;
-	private static Scanner k26_scanner = new Scanner(System.in);
 	private static String k26_DBName = "";
 	
 	public String k26_getDB_NAME() {

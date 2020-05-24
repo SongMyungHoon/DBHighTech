@@ -1,6 +1,8 @@
 package k26_DBProject3rdExam;
 
 import java.lang.reflect.*;
+import java.util.Map;
+import java.util.HashMap;
 
 public class K26_Item {
 	private int no = 0;
@@ -71,17 +73,17 @@ public class K26_Item {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-//	@Override
-//	public String toString() {
-//		return stringBuilder.append("no ").append(no)
-//				.append(". name : ").append(name)
-//				.append(", weight : ").append(weight).append(" (g)")
-//				.append(", displaySize : ").append(displaySize).append(" (inch)")
-//				.append(", diskVolume : ").append(diskVolume).append(" (GB)")
-//				.append(", etc : ").append(etc)
-//				.append(", price : ").append(price).append(" (만원)")
-//				.toString();
-//	}
+	
+	public Map<String, String> k26_getFieldList() {
+		Map<String, String> fieldList = new HashMap<>();
+		fieldList.put("name", "String");
+		fieldList.put("weight", "int");
+		fieldList.put("displaySize", "double");
+		fieldList.put("diskVolume", "int");
+		fieldList.put("etc", "String");
+		fieldList.put("price", "int");
+		return fieldList;
+	}
 	@Override
 	public String toString() {
 		return stringBuilder.append(String.format("|%s.", no))
