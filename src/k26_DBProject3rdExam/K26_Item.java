@@ -1,8 +1,6 @@
 package k26_DBProject3rdExam;
 
-import java.lang.reflect.*;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class K26_Item {
 	private int no = 0;
@@ -13,6 +11,8 @@ public class K26_Item {
 	private String etc = "";
 	private int price = 0;
 	StringBuilder stringBuilder = new StringBuilder();
+	
+	public K26_Item() {};
 	
 	public K26_Item(int no, String name, int weight,
 			double displaySize, int diskVolume, String etc, int price) {
@@ -74,24 +74,34 @@ public class K26_Item {
 		this.price = price;
 	}
 	
-	public Map<String, String> k26_getFieldList() {
-		Map<String, String> fieldList = new HashMap<>();
-		fieldList.put("name", "String");
-		fieldList.put("weight", "int");
-		fieldList.put("displaySize", "double");
-		fieldList.put("diskVolume", "int");
-		fieldList.put("etc", "String");
-		fieldList.put("price", "int");
+	public Map<String, String> k26_getFieldType() {
+		Map<String, String> fieldMap = new HashMap<>();
+		fieldMap.put("name", "String");
+		fieldMap.put("weight", "int");
+		fieldMap.put("displaySize", "double");
+		fieldMap.put("diskVolume", "int");
+		fieldMap.put("etc", "String");
+		fieldMap.put("price", "int");
+		return fieldMap;
+	}
+	public List<String> k26_getFieldValue() {
+		List<String> fieldList = new ArrayList<>();
+		fieldList.add("weight");
+		fieldList.add("displaySize");
+		fieldList.add("diskVolume");
+		fieldList.add("etc");
+		fieldList.add("price");
 		return fieldList;
 	}
+	
 	@Override
 	public String toString() {
-		return stringBuilder.append(String.format("|%s.", no))
-				.append(String.format("|%s", name))
-				.append(String.format("|%d", weight))
-				.append(String.format("|%.1f", displaySize))
-				.append(String.format("|%d", diskVolume))
-				.append(String.format("|%s", etc))
-				.append(String.format("|%d|", price)).toString();
+		return stringBuilder.append(String.format("%s. ", no))
+				.append(String.format("%s, ", name))
+				.append(String.format("%d, ", weight))
+				.append(String.format("%.1f, ", displaySize))
+				.append(String.format("%d, ", diskVolume))
+				.append(String.format("%s, ", etc))
+				.append(String.format("%d", price)).toString();
 	}
 }

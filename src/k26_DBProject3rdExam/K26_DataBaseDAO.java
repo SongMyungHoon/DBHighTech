@@ -128,13 +128,11 @@ public class K26_DataBaseDAO {
 		List<K26_Item> k26_result = new ArrayList<>();
 		Statement k26_statement = null;
 		ResultSet k26_resultSet = null;
-		ResultSetMetaData k26_rsmd = null;
 		try {
 			k26_statement = k26_connection.createStatement();
 //			System.out.println("Query: " + k26_query);
 			if((k26_resultSet = k26_statement.executeQuery(k26_query)) != null) {
 //				System.out.println("----   Query O.K.   ----");
-				k26_rsmd = (ResultSetMetaData) k26_resultSet.getMetaData();
 			}
 			while (k26_resultSet != null && k26_resultSet.next()) {
 				K26_Item k26_item = new K26_Item(
