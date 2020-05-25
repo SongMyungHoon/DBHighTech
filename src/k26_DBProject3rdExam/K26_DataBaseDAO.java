@@ -39,14 +39,11 @@ public class K26_DataBaseDAO {
 		
 		// Open a connection
 		try {
-//			System.out.println("---- Connecting DB ----");
 			k26_connection = DriverManager.getConnection(k26_DB_URL, k26_ID, k26_PASSWORD);
-//			k26_connection.setCatalog(k26_DBName);
 		} catch (SQLException k26_Error) {
 			System.out.println("Error] Connection fail: \n" + k26_Error.getMessage());
 			k26_Error.printStackTrace();
 		}
-//		System.out.println("---- DB connection complete ----");
 		// connection을 살려서 반환
 		return k26_connection;
 	}
@@ -70,8 +67,8 @@ public class K26_DataBaseDAO {
 				/* statement.execute(sql)
 				 * return true if the first result is a ResultSet object 
 			     * return false if it is an update count or there are no results 
-			     * create database는 row의 count를 반환하므로  return true인 경우
-			     * DB 생성 실패 */ 
+			     * create database db_name query는 row의 count를 반환하므로 
+			     * return true인 경우 DB 생성 실패를 의미한다. */ 
 				if(k26_statement.execute(k26_dbSql)) {
 					System.out.println("데이터베이스 생성 실패");
 				}
@@ -102,10 +99,8 @@ public class K26_DataBaseDAO {
 	public void k26_executeQuery(String k26_query) {
 		Statement k26_statement = null;
 		try {
-//			System.out.println("Query: " + k26_query);
 			k26_statement = k26_connection.createStatement();
 			if(k26_statement != null && k26_statement.executeUpdate(k26_query) >= 0) {
-//				System.out.println("----   Query O.K.   ----");
 			} else {
 				System.out.println("Error] Execute fail");
 			}
@@ -130,9 +125,7 @@ public class K26_DataBaseDAO {
 		ResultSet k26_resultSet = null;
 		try {
 			k26_statement = k26_connection.createStatement();
-//			System.out.println("Query: " + k26_query);
 			if((k26_resultSet = k26_statement.executeQuery(k26_query)) != null) {
-//				System.out.println("----   Query O.K.   ----");
 			}
 			while (k26_resultSet != null && k26_resultSet.next()) {
 				K26_Item k26_item = new K26_Item(

@@ -13,67 +13,83 @@ public class K26_Menu {
 	private static K26_Item k26_item = new K26_Item();
 	
 	public static void k26_initialMenu() {
-		k26_dbDAO.k26_setDBName(k26_dbName);
-		k26_dbDAO.k26_connectDB();
-		k26_dbDAO.k26_setDB();
-		String[] k26_initMenuLineArray = {
-				"### 메뉴 ###", "1. 물품 목록 조회"
-				, "2. 물품 비교하기", "3. 물품 수정하기"
-				, "4. 물폼 입력하기", "5. 물품 삭제하기"
-				};
-		List<String> k26_initMenuList = Arrays.asList(k26_initMenuLineArray);
-		k26_whileLoop:
-		while(true) {
-			k26_initMenuList.stream().forEach(System.out::println);
-			System.out.print("원하시는 메뉴를 선택하세요 (0은 초기메뉴) --> ");
-			switch(k26_scanner.nextLine()) {
-				case "1": {	// 1. 물품 목록 조회
-					k26_whileLoop(K26_Menu::k26_itemDataLoad);
-					break k26_whileLoop;
-				}	// end case "1"
-				case "2": {	// 2. 물품 비교하기
-					k26_whileLoop(K26_Menu::k26_itemCompare);
-					break k26_whileLoop;
-				}	// end case "2"
-				case "3": { // 3. 물품 수정하기
-					k26_whileLoop(K26_Menu::k26_revisedItem);
-					break k26_whileLoop;
-				}	// end case "3"
-				case "4": { // 4. 물품 입력하기
-					k26_whileLoop(K26_Menu::k26_insertItem);
-					break k26_whileLoop;
-				}	// end case "4"
-				case "5": {	// 5. 물품 삭제하기
-					k26_whileLoop(K26_Menu::k26_deleteItem);
-					break k26_whileLoop;
-				}
-				case "0": {  // 0. 초기 메뉴로 이동
-					System.out.println("\n초기 메뉴로 돌아갑니다.");
-					break k26_whileLoop;
-				}	// end case "0"
-				default: {
-					System.out.println("\n잘못 입력하셨습니다. 다시 입력해 주세요.");
-					System.out.print("원하시는 메뉴를 선택하세요 (0은 초기메뉴) --> ");
-					continue;
-				}	// end default
-			}	// end switch
-		}	// end while
+		k26_dbDAO.k26_setDBName(k26_dbName);	// k26_dbDAO 객체의 DBName을 k26_dbName으로 set
+		k26_dbDAO.k26_connectDB();				// k26_dbDAO 객체의 connection 객체 생성
+		k26_dbDAO.k26_setDB();					// k26_dbName과 동일한 이름의 DB를 탐색하고, 없는 경우 DB 생성해 use
+		List<String> k26_initMenuList = new ArrayList<>() {
+			{	// 초기 메뉴를 구성하는 문자열을 List로 선언
+				add("### 메뉴 ###");   
+				add("1. 물품 목록 조회");
+				add("2. 물품 비교하기");
+				add("3. 물품 수정하기");
+				add("4. 물폼 입력하기");
+				add("5. 물품 삭제하기");
+			}
+		};
+				
+		k26_whileLoop:	// k26_initialMenu method의 while문을 k26_whileLoop로 labeling
+			while(true) {
+				// k26_initMenuList의 모든 요소를 forEach 문으로 출력
+				k26_initMenuList.stream().forEach(System.out::println);
+				System.out.print("원하시는 메뉴를 선택하세요 (0은 초기메뉴) --> ");
+				// 메뉴 선택을 입력받아 switch - case문으로 각 메뉴 작동
+				switch(k26_scanner.nextLine()) {
+					case "1": {	// 1. 물품 목록 조회					// k26_whileLoop method의 argument로 k26_itemDataLoad method를
+						k26_whileLoop(K26_Menu::k26_itemDataLoad);	// functional interface 형태로 넘겨받아 내부에서 호출
+						break k26_whileLoop;						// method 종료 후 k26_initialMenu method의 k26_whileLoop escape
+					}	// end case "1"
+					case "2": {	// 2. 물품 비교하기						// k26_whileLoop method의 argument로 k26_itemCoompare method를
+						k26_whileLoop(K26_Menu::k26_itemCompare);	// functional interface 형태로 넘겨받아 내부에서 호출
+						break k26_whileLoop;						// method 종료 후 k26_initialMenu method의 k26_whileLoop escape
+					}	// end case "2"
+					case "3": { // 3. 물품 수정하기						// k26_whileLoop method의 argument로 k26_revisedItem method를
+						k26_whileLoop(K26_Menu::k26_revisedItem);	// functional interface 형태로 넘겨받아 내부에서 호출
+						break k26_whileLoop;						// method 종료 후 k26_initialMenu method의 k26_whileLoop escape
+					}	// end case "3"
+					case "4": { // 4. 물품 입력하기						// k26_whileLoop method의 argument로 k26_insertItem method를
+						k26_whileLoop(K26_Menu::k26_insertItem);	// functional interface 형태로 넘겨받아 내부에서 호출
+						break k26_whileLoop;						// method 종료 후 k26_initialMenu method의 k26_whileLoop escape
+					}	// end case "4"								
+					case "5": {	// 5. 물품 삭제하기						// k26_whileLoop method의 argument로 k26_insertItem method를
+						k26_whileLoop(K26_Menu::k26_deleteItem);	// functional interface 형태로 넘겨받아 내부에서 호출
+						break k26_whileLoop;						// method 종료 후 k26_initialMenu method의 k26_whileLoop escape
+					}
+					case "0": {  // 0. 초기 메뉴로 이동
+						System.out.println("\n초기 메뉴로 돌아갑니다.");
+						break k26_whileLoop;	// k26_initialMenu method의 k26_whileLoop escape
+					}	// end case "0"
+					default: {		// "1", "2", "3", "4", "5", "0" 외의 값을 입력하는 경우 예외 처리
+						System.out.println("\n잘못 입력하셨습니다. 다시 입력해 주세요.");
+						System.out.print("원하시는 메뉴를 선택하세요 (0은 초기메뉴) --> ");
+						continue;	// k26_initialMenu Method의 k26_whileLoop continue 
+					}
+				}	// end switch
+			}	// end while
 	}	// end k26_initialMenu
 	
+	/** k26_whileLoop method
+	 *  k26_initialMenu method 내부에서 호출되어 각 메뉴를 작동시키는 method들을  
+	 *  사전에 Single Abstract Method interface로 정의된 interface type의
+	 *  parameter인 k26_function으로 받아 while문 안에서 반복적으로 호출하는 형태로 설계
+	 * @param K26_IntReturnFunctionOperator interface type k26_function
+	 * @return void
+	 */
 	public static void k26_whileLoop(K26_IntReturnFunctionOperator k26_function) {
-		k26_whileLoop:
-		while(true) {
-			switch (k26_function.k26_call()) {
-				case -1: {
-					System.out.println("\n상위 메뉴로 이동합니다.\n");
-					break k26_whileLoop;
-				}
-				default:{
-					System.out.println("\n잘못 입력하셨습니다. 다시 입력해 주세요.");
-					continue;
-				}	// end default
-			}	// end switch
-		}	// end while
+		k26_whileLoop:	// while loop labeling : k26_whileLoop
+			while(true) {
+				/* SAM interface인 K26_IntReturnFunctionOperator의 k26_call method로
+				 * k26_fuction 호출하고 return이 (int) -1인 경우 k26_whileLoop escape */
+				switch (k26_function.k26_call()) {
+					case -1: {
+						System.out.println("\n상위 메뉴로 이동합니다.\n");
+						break k26_whileLoop;	// k26_whileLoop escape
+					}
+					default:{		// k26_function.k26_call()의 return != -1인 경우
+						System.out.println("\n잘못 입력하셨습니다. 다시 입력해 주세요.");
+						continue;	// k26_whileLoop continue
+					}
+				}	// end switch
+			}	// end while
 	}	// k26_whileLoop end
 	
 	public static void k26_itemListPrint() {
@@ -93,25 +109,16 @@ public class K26_Menu {
 			String k26_selectMenu = k26_scanner.nextLine();
 			// 특정 항목 기준으로 정렬하는 경우
 			switch(k26_selectMenu) {
-				case "1": {
-					if(k26_orderByPrint("asc") == 1) {
-						// 번호 순으로 정렬 초기화하여 itemList에 저장
-						k26_itemListInitialize();
-						break;
-					} else {
-						k26_itemListInitialize();
-						continue;
-					}
+				case "1": {	// order by asc case
+					k26_orderByPrint("asc");	// k26_orderByPrint method 실행 후
+					k26_itemListInitialize();	// itemList.clear() 하고 번호 순으로 재정렬 
+					break;						// break 후 while loop 반복
 				}
 				case "2": {
-					if(k26_orderByPrint("desc") == -1) {
+					k26_orderByPrint("desc");
 						// 번호 순으로 정렬 초기화하여 itemList에 저장
-						k26_itemListInitialize();
-						break;
-					} else {
-						k26_itemListInitialize();
-						continue;
-					}
+					k26_itemListInitialize();
+					break;
 				}
 				case "-1": {
 					break k26_whileLoop;
@@ -119,8 +126,8 @@ public class K26_Menu {
 				default : { 
 					System.out.println("\n잘못 입력하셨습니다.");
 					continue;
-				}	// outer switch - case end
-			}	// if end
+				}
+			}	// switch - case end
 		}	// while end
 		return -1;
 	}	// k26_itemDataLoad method end
@@ -128,52 +135,52 @@ public class K26_Menu {
 	public static int k26_orderByPrint(String direction) {
 		System.out.println("\n정렬할 항목을 대소문자를 구분하여 정확히 입력해 주세요");
 		System.out.println("선택 가능 항목: name, weight, displaySize, diskVolume, price");
-		// 정렬할 column 값 입력 받아 orderBy에 저장
-		String orderBy = k26_scanner.nextLine();
-		switch(orderBy) {
+		// 정렬할 column 값 입력 받아 switch - case 작동
+		switch(k26_scanner.nextLine()) {
 			case "name": {
-				k26_itemList.clear();
-				// "name" column 기준 오름차순 정렬 request 후 결과를 k26_itemList에 저장
-				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by " + orderBy + " " + direction);
+				k26_itemList.clear();	// itemList에 select문 결과를 add하기 전에 itemList 초기화
+				// "name" column 기준 direction 방향(asc, desc) 정렬 request 후 결과를 k26_itemList에 저장
+				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by name " + direction);
 				k26_itemListPrint();	// 정렬된 결과를 출력
 				break;
 			}	// case "name" end
 			case "weight": {
-				k26_itemList.clear();
-				// "weight" column 기준 오름차순 정렬 request 후 결과를 k26_itemList에 저장
-				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by " + orderBy + " " + direction);
+				k26_itemList.clear();	// itemList에 select문 결과를 add하기 전에 itemList 초기화
+				// "weight" column 기준 direction 방향(asc, desc) 정렬 request 후 결과를 k26_itemList에 저장
+				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by weight " + direction);
 				k26_itemListPrint();	// 정렬된 결과를 출력
 				break;
 			}	// case "weight" end
 			case "displaySize": {
-				k26_itemList.clear();
-				// "display_size" column 기준 오름차순 정렬 request 후 결과를 k26_itemList에 저장
+				k26_itemList.clear(); 	// itemList에 select문 결과를 add하기 전에 itemList 초기화
+				// "display_size" column 기준 direction 방향(asc, desc) 정렬 request 후 결과를 k26_itemList에 저장
 				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by display_size " + direction);
 				k26_itemListPrint();	// 정렬된 결과를 출력
 				break;
 			}	// case "displaySize" end
 			case "diskVolume": {
 				k26_itemList.clear();
-				// "display_size" column 기준 오름차순 정렬 request 후 결과를 k26_itemList에 저장
+				// "display_size" column 기준 direction 방향(asc, desc) 정렬 request 후 결과를 k26_itemList에 저장
 				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by disc_volume " + direction);
 				k26_itemListPrint();	// 정렬된 결과를 출력
 				break;
 			}	// case "diskVolume" end
 			case "price": {
 				k26_itemList.clear();
-				// "price" column 기준 오름차순 정렬 request 후 결과를 k26_itemList에 저장
-				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by " + orderBy + " " + direction);
+				// "price" column 기준 direction 방향(asc, desc) 정렬 request 후 결과를 k26_itemList에 저장
+				k26_itemList = k26_dbDAO.k26_itemDataLoadQuery("select * from " + k26_tblName + " order by price " + direction);
 				k26_itemListPrint();	// 정렬된 결과를 출력
 				break;
 			}	// case "price" end
 			default : {	// 예외 처리
 				System.out.println("\n잘못된 입력입니다.\n");
-				// 잘못된 입력인 경우 다시 반복
+				/* 잘못된 입력인 경우 k26_orderByPrint return -1
+				 * k26_itemDataLoad method의 while에서 반복 */
 				return -1;
 			}	// default end
 		}	// switch - case end
-		return 1;
-	}
+		return 1;	// k26_itemDataLoad method에서 1을 return 받고 while Loop 탈출
+	}	// k26_orderByPrint method end
 	
 	public static int k26_itemCompare() {
 		String k26_itemANum = "";
