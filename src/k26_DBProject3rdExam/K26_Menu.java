@@ -3,12 +3,13 @@ package k26_DBProject3rdExam;
 import java.util.*;
 
 public class K26_Menu {
-	private static final String k26_dbName = "dbproject_3rd_exam";
-	private static final String k26_tblName = "item_tbl";
-	private static K26_DataBaseDAO k26_dbDAO = new K26_DataBaseDAO();
-	private static List<K26_Item> k26_itemList = new ArrayList<>();
-	private static StringBuilder k26_stringBuilder = new StringBuilder();
-	private static Scanner k26_scanner = new Scanner(System.in);
+	private static final String k26_dbName = "dbproject_3rd_exam";			// 사용할 MySQL DB 이름
+	private static final String k26_tblName = "item_tbl";					// 사용할 table 이름
+	// MySQL Database 접속 및 쿼리 수행을 위한 클래스. 메서드 수행 결과를 저장.
+	private static K26_DataBaseDAO k26_dbDAO = new K26_DataBaseDAO();		
+	private static List<K26_Item> k26_itemList = new ArrayList<>();			// Query 수행 결과를 저장하는 Item 객체를 요소로 하는 List
+	private static StringBuilder k26_stringBuilder = new StringBuilder();	// String manipulation을 담당할 StringBuilder 객체
+	private static Scanner k26_scanner = new Scanner(System.in);			//
 	private static Map<String, String> k26_itemFieldType = new HashMap<>();
 	private static K26_Item k26_item = new K26_Item();
 	
@@ -243,12 +244,55 @@ public class K26_Menu {
 				k26_itemList.stream().forEach(System.out::println);	// itemList의 요소인 item A, B 데이터를 출력
 				K26_Item k26_itemA = k26_itemList.get(0);
 				K26_Item k26_itemB = k26_itemList.get(1);
+				List<Integer> k26_scoreFlag = new ArrayList<>();	// 점수 획득 플래그
+				Map<Integer, Integer> k26_score = new HashMap<>();	// 점수 계산 Map
+				// 무게가 가벼우면 점수가 더 높다
 				if(k26_itemA.getWeight() > k26_itemB.getWeight()) {
-					System.out.println(String.format("*무게 : %d > %d", k26_itemA.getNo(), k26_itemA.getNo()));
+					System.out.println(String.format("*무게 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemB.getNo());
+					k26_score.put(k26_itemB.getNo(), 20);
 				} else if(k26_itemA.getWeight() < k26_itemB.getWeight()) {
-					System.out.println(String.format("*무게 : %d < %d", k26_itemA.getNo(), k26_itemA.getNo()));
+					System.out.println(String.format("*무게 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemA.getNo());
+					k26_score.put(k26_itemA.getNo(), 20);
 				} else {
-					System.out.println(String.format("*무게 : %d = %d", k26_itemA.getNo(), k26_itemA.getNo()));
+					System.out.println(String.format("*무게 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(0);
+				}
+				// 화면이 크면 점수가 더 높다
+				if(k26_itemA.getDisplaySize() > k26_itemB.getDisplaySize()) {
+					System.out.println(String.format("*화면 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemA.getNo());
+					k26_score.put(k26_itemA.getNo(), 20);
+				} else if(k26_itemA.getWeight() < k26_itemB.getWeight()) {
+					System.out.println(String.format("*화면 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemB.getNo());
+					k26_score.put(k26_itemB.getNo(), 20);
+				} else {
+					System.out.println(String.format("*화면 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(0);
+				}
+				// 디스크용량이 크면 점수가 더 높다
+				if(k26_itemA.getDiskVolume() > k26_itemB.getDiskVolume()) {
+					System.out.println(String.format("*디스크 용량 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemA.getNo());
+				} else if(k26_itemA.getWeight() < k26_itemB.getWeight()) {
+					System.out.println(String.format("*디스크 용량 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemB.getNo());
+				} else {
+					System.out.println(String.format("*디스크 용량 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(0);
+				}
+				// 가격이 싸면 점수가 더 높다
+				if(k26_itemA.getPrice() > k26_itemB.getPrice()) {
+					System.out.println(String.format("*가격 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemB.getNo());
+				} else if(k26_itemA.getPrice() < k26_itemB.getPrice()) {
+					System.out.println(String.format("*가격 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(k26_itemA.getNo());
+				} else {
+					System.out.println(String.format("*가격 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
+					k26_scoreFlag.add(0);
 				}
 				k26_innerWhileLoop:	// 반복 작업 요청 입력 시 잘못된 값 입력하는 경우
 					while(true) {	// 반복 작업 요청 입력을 다시 하기 위한 while문
