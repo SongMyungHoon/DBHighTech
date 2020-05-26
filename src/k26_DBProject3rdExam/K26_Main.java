@@ -6,7 +6,6 @@ public class K26_Main {
 		while(execute) {
 			K26_Menu.k26_initialMenu();
 		}
-
 	}
 }
 /*  menu.k26_itemListPrint();

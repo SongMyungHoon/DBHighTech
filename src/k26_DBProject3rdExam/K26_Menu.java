@@ -244,56 +244,80 @@ public class K26_Menu {
 				k26_itemList.stream().forEach(System.out::println);	// itemList의 요소인 item A, B 데이터를 출력
 				K26_Item k26_itemA = k26_itemList.get(0);
 				K26_Item k26_itemB = k26_itemList.get(1);
-				List<Integer> k26_scoreFlag = new ArrayList<>();	// 점수 획득 플래그
-				Map<Integer, Integer> k26_score = new HashMap<>();	// 점수 계산 Map
+				K26_Score k26_condScoreA = new K26_Score(); //
+				K26_Score k26_condScoreB = new K26_Score(); //
+				List<K26_Score> k26_scoreListA = new ArrayList<>();
+				List<K26_Score> k26_scoreListB = new ArrayList<>();
 				// 무게가 가벼우면 점수가 더 높다
 				if(k26_itemA.getWeight() > k26_itemB.getWeight()) {
 					System.out.println(String.format("*무게 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemB.getNo());
-					k26_score.put(k26_itemB.getNo(), 20);
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("조건1(20)", 20));
 				} else if(k26_itemA.getWeight() < k26_itemB.getWeight()) {
 					System.out.println(String.format("*무게 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemA.getNo());
-					k26_score.put(k26_itemA.getNo(), 20);
+					k26_scoreListA.add(new K26_Score("조건1(20)", 20));
+					k26_scoreListB.add(new K26_Score("", 0));
 				} else {
 					System.out.println(String.format("*무게 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(0);
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("", 0));
 				}
 				// 화면이 크면 점수가 더 높다
 				if(k26_itemA.getDisplaySize() > k26_itemB.getDisplaySize()) {
 					System.out.println(String.format("*화면 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemA.getNo());
-					k26_score.put(k26_itemA.getNo(), 20);
-				} else if(k26_itemA.getWeight() < k26_itemB.getWeight()) {
+					k26_scoreListA.add(new K26_Score("조건2(20)", 20));
+					k26_scoreListB.add(new K26_Score("", 0));
+				} else if(k26_itemA.getDisplaySize() < k26_itemB.getDisplaySize()) {
 					System.out.println(String.format("*화면 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemB.getNo());
-					k26_score.put(k26_itemB.getNo(), 20);
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("조건2(20)", 20));
 				} else {
 					System.out.println(String.format("*화면 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(0);
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("", 0));
 				}
 				// 디스크용량이 크면 점수가 더 높다
 				if(k26_itemA.getDiskVolume() > k26_itemB.getDiskVolume()) {
 					System.out.println(String.format("*디스크 용량 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemA.getNo());
+					k26_scoreListA.add(new K26_Score("조건3(20)", 20));
+					k26_scoreListB.add(new K26_Score("", 0));
 				} else if(k26_itemA.getWeight() < k26_itemB.getWeight()) {
 					System.out.println(String.format("*디스크 용량 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemB.getNo());
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("조건3(20)", 20));
 				} else {
 					System.out.println(String.format("*디스크 용량 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(0);
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("", 0));
 				}
 				// 가격이 싸면 점수가 더 높다
 				if(k26_itemA.getPrice() > k26_itemB.getPrice()) {
 					System.out.println(String.format("*가격 : %d < %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemB.getNo());
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("가격(40)", 40));
 				} else if(k26_itemA.getPrice() < k26_itemB.getPrice()) {
 					System.out.println(String.format("*가격 : %d > %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(k26_itemA.getNo());
+					k26_scoreListA.add(new K26_Score("가격(40)", 40));
+					k26_scoreListB.add(new K26_Score("", 0));
 				} else {
 					System.out.println(String.format("*가격 : %d = %d", k26_itemA.getNo(), k26_itemB.getNo()));
-					k26_scoreFlag.add(0);
+					k26_scoreListA.add(new K26_Score("", 0));
+					k26_scoreListB.add(new K26_Score("", 0));
 				}
+				System.out.println("추천 : 조건1 (20점), 조건2 (20점), 조건3 (20점), 가격 (40점)");
+
+				int scoreA = k26_scoring(k26_itemA, k26_scoreListA);
+
+				int scoreB = k26_scoring(k26_itemB, k26_scoreListB);
+				
+				if(scoreA > scoreB) {
+					System.out.println(String.format("- 최종 추천 : %s", k26_itemA.getName()));
+				} else if(scoreA < scoreB) {
+					System.out.println(String.format("- 최종 추천 : %s", k26_itemB.getName()));
+				} else {
+					System.out.println("- 최종 추천 : 동점입니다.");
+				}
+
 				k26_innerWhileLoop:	// 반복 작업 요청 입력 시 잘못된 값 입력하는 경우
 					while(true) {	// 반복 작업 요청 입력을 다시 하기 위한 while문
 						System.out.println("더 비교하시겠습니까? (1:예, 2:아니오-상위메뉴로 이동)");
@@ -313,7 +337,32 @@ public class K26_Menu {
 			}	// k26_outerWhileLoop end
 		return -1;
 	}
-
+	
+	public static int k26_scoring(K26_Item k26_item, List<K26_Score> k26_score) {
+		int totalScore = 0;
+		int count = 0;
+		k26_stringBuilder.append(String.format("- %s : ", k26_item.getName()));
+		
+		for(int i = 0; i< k26_score.size(); i++) {
+			if(!k26_score.get(i).isScoreZero()) {
+				if(count == 0) {
+					k26_stringBuilder.append(k26_score.get(i).getCondition());
+				} else {
+					k26_stringBuilder.append(" + ").append(k26_score.get(i).getCondition());
+				}
+				count++;
+			} 
+			totalScore += k26_score.get(i).getScore();
+		}
+		if(totalScore != 0) {
+			k26_stringBuilder.append(String.format(" = %d점", totalScore));
+		} else {
+			k26_stringBuilder.append(String.format("%d점", totalScore));
+		}
+		System.out.println(k26_stringBuilder.toString());
+		k26_stringBuilder.setLength(0);
+		return totalScore;
+	}
 	
 	public static int k26_revisedItem() {
 		k26_itemListInitialize();
