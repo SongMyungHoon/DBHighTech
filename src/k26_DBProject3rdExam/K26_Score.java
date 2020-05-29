@@ -1,7 +1,5 @@
 package k26_DBProject3rdExam;
 
-import java.util.*;
-
 public class K26_Score {
 	private String k26_condition = "";
 	private int k26_score = 0;

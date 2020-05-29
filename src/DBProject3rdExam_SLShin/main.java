@@ -1,4 +1,4 @@
-package exercising;
+package DBProject3rdExam_SLShin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
