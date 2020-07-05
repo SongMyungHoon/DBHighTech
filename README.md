@@ -1,4 +1,4 @@
-# JavaEclipse_HighTech
-# JavaEclipseHighTech
-# DBHighTech
-# DBHighTech
+# JavaEclipse
+# JavaEclipse
+# DB
+# DB
