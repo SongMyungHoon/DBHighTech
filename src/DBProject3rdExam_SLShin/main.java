@@ -37,6 +37,7 @@ public class main {
 				continue;
 			}
 		}
+		sc.close();
 	}
 
 	public static void end() {
@@ -60,6 +61,7 @@ public class main {
 		System.out.println("|        [0]   돌아가기                |");
 		System.out.println("+=================================+");
 		menuSelect();
+		sc.close();
 	}
 
 	public static void menuSelect() {
@@ -90,6 +92,7 @@ public class main {
 			System.out.println(">>> 에러입니다. 다시 누르세요");
 			menuSelect(); // 다시 선택
 		}
+		sc.close();
 	}
 
 	public static void compare() {
@@ -114,6 +117,7 @@ public class main {
 			System.out.println(">>> 에러입니다. 다시 누르세요");
 			compare();
 		}
+		sc.close();
 	}
 
 	public static void compare2() {
@@ -180,6 +184,7 @@ public class main {
 				continue;
 			}
 		}
+		sc.close();
 	}
 
 	public static void recommend(String str1, String str2) {
@@ -236,6 +241,7 @@ public class main {
 				break;
 			}
 		}
+		sc.close();
 
 	}
 
@@ -270,6 +276,7 @@ public class main {
 		System.out.println("|  [2]  종료 하기                         |");
 		System.out.println("+=================================+");
 		alter2();
+		sc.close();
 
 	}
 
@@ -291,6 +298,7 @@ public class main {
 			System.out.println("");
 			alter2();
 		}
+		sc.close();
 	}
 
 	public static void insert() {
@@ -322,6 +330,7 @@ public class main {
 		System.out.println("|  [2]  종료 하기                         |");
 		System.out.println("+=================================+");
 		insert2();
+		sc.close();
 
 	}
 
@@ -343,6 +352,7 @@ public class main {
 			System.out.println("");
 			insert2();
 		}
+		sc.close();
 	}
 
 	public static void delete() {
@@ -364,6 +374,7 @@ public class main {
 		System.out.println("|  [2]  종료 하기                         |");
 		System.out.println("+=================================+");
 		delete2();
+		sc.close();
 	}
 
 	public static void delete2() {
@@ -384,6 +395,7 @@ public class main {
 			System.out.println("");
 			delete2();
 		}
+		sc.close();
 	}
 
 	// 쿼리 메소드
